@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: #f4f4f9;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .all {
+        display: flex;
+        max-width: 1000px;
+        margin: 20px auto;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+
+    .left {
+        width: 170px;
+        min-height: 600px;
+        background-color: #0E86D4;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        padding: 20px 0;
+    }
+
+    .left > button {
+        width: 90%;
+        height: 50px;
+        margin: 5px 0;
+        font-size: 16px;
+        background-color: #003060;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .left > button:hover {
+        background-color: #001F3F;
+        transform: translateY(-2px);
+    }
+
+    .right {
+        flex: 1;
+        padding: 20px;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .buttons > button {
+        flex: 1;
+        margin: 0 5px;
+        height: 50px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #003060;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .buttons > button:hover {
+        background-color: #001F3F;
+        transform: translateY(-2px);
+    }
+
+    .Users, .tasks {
+        max-height: 450px;
+        overflow-y: auto;
+    }
+
+    .Users > div, .task {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        background-color: #0E86D4;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .Users > div:hover, .task:hover {
+        background-color: #005F8F;
+        transform: translateY(-2px);
+    }
+
+    .Users > div > span, .task-header, .task-name, .task-description, .task-status {
+        flex: 1;
+        text-align: center;
+        color: #FFF;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 0 5px;
+    }
+
+    .user > button {
+        width: 60px;
+        height: 30px;
+        background-color: #005F8F;
+        color: #FFF;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .user > button:hover {
+        background-color: #004060;
+    }
+
+    .error-popup,
+    .user-details-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        color: #333;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        z-index: 9999;
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+    }
+
+    .error-popup {
+        background-color: #FF4C4C;
+        color: #fff;
+    }
+
+    .error-popup button, .user-details-popup button {
+        margin-top: 15px;
+        padding: 8px 15px;
+        background-color: #003060;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .error-popup button:hover, .user-details-popup button:hover {
+        background-color: #001F3F;
+    }
+
+    .user-details-popup {
+        background-color: #68BBE3;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 10px;
+    }
+
+    .user-details-popup p, .user-details-popup input {
+        margin: 0;
+        padding: 4px;
+        background-color: #fff;
+        border-radius: 5px;
+    }
+
+    .user-details-popup label {
+        font-weight: bold;
+        color: #fff;
+    }
+
+</style>
+
+    </style>
+</head>
+
+<body>
+    <div class="all" id="app">
+        <div class="left">
+            <button @click="CKshow(1)">账号管理</button>
+            <button @click="CKshow(2)">任务队列</button>
+        </div>
+        <div v-if="show==1" class="right">
+            <div class="buttons">
+                <button>导出账户</button>
+                <button>导入账户</button>
+                <button>批量操作</button>
+            </div>
+            <div class="Users">
+                <div>
+                    <span>标号</span>
+                    <span>账号</span>
+                    <span>昵称</span>
+                    <span>个性签名</span>
+                    <span>操作</span>
+                </div>
+                <div class="user" v-for="user in users">
+                    <span>{{user['UserID']}}</span>
+                    <span>{{user['Username']}}</span>
+                    <span>{{user['Nickname']}}</span>
+                    <span>{{user['Signature']}}</span>
+                    <button @click="DetailsPopup(user['UserID'])">修改</button>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="show==2" class="right">
+        <div class="tasks">
+            <div class="task" v-for="task in tasks">
+                <div class="task-header">{{task.TaskID}}</div>
+                <div class="task-name">{{ task.UserID }}</div>
+                <div class="task-description">{{ task.TaskType }}</div>
+                <div class="task-status">{{ task.Status }}</div>
+            </div>
+        </div>
+        </div>
+
+        <div class="error-popup" v-if="error">
+            <p>{{ errorMessage }}</p>
+            <button @click="closeErrorPopup">关闭</button>
+        </div>
+
+        <div class="user-details-popup" v-if="showDetailsPopup">
+            <label>编号:</label> <p>{{selectedUser.UserID}}</p>
+            <label>用户名:</label> <p>{{selectedUser.Username}}</p>
+            <label>昵称:</label> <input type="text" v-model="selectedUser.Nickname">
+            <label>个性签名:</label> <input type="text" v-model="selectedUser.Signature">
+            <label>头像链接:</label> <p>{{selectedUser.AvatarUrl}}</p>
+            <label>密码:</label> <input type="text" v-model="selectedUser.Password">
+            <label>2FA验证码:</label> <p>{{selectedUser.TwoFa}}</p>
+            <label>点击获取->:</label><a href="#" @click="getTwoFANumber()">获取2FA验证码</a>
+            <label>2FA验证密钥:</label> <input type="text" v-model="selectedUser.TwoFaKey">
+
+            <button @click="saveUserInfo">保存</button>
+            <button @click="closeDetailsPopup">取消</button>
+        </div>
+    </div>
+
+    <script>
+
+        window.addEventListener('pywebviewready', function() {
+                console.log("is readlly")
+                app.mount('#app')
+            })
+        const { createApp, ref } = Vue
+        const app = createApp({
+            data() {
+                return {
+                    message: "hello",
+                    show: 1, // 1 账号管理 // 2 任务队列
+                    users: [
+                    ],
+                    error: false,
+                    errorMessage: "无此用户",
+                    showDetailsPopup: false,
+                    selectedUser: {},
+                
+                tasks: [
+                ],
+                }
+            },
+            methods: {
+                CKshow(id) {
+                    this.show = id;
+                },
+                closeErrorPopup() {
+                    this.error = false;
+                },
+                closeDetailsPopup() {
+                    this.showDetailsPopup = false;
+                },
+                saveUserInfo() {
+                    console.log('User Info Saved', this.selectedUser);
+                    this.closeDetailsPopup();
+                },
+                getUserList(){
+                    // 获取用户列表
+                    var that = this
+                    pywebview.api.getUserList().then(result => {
+                        that.users = result
+                        console.log(result)
+                    }).catch(error => {
+
+                    })
+                },
+                getTaskList(){
+                    var that = this
+                    pywebview.api.getTaskList().then(result => {
+                        that.tasks = result;
+                        console.log(result)
+                    }).catch(error => {
+
+                    })
+                },
+                DetailsPopup(id){
+                    // 显示代码
+                    that = this
+                    pywebview.api.selectUserData(id).then(result => {
+                        that.selectedUser = result
+                        console.log(result);
+                        
+                    })
+                    this.showDetailsPopup = true
+                },
+                getTwoFANumber(){
+                    this.key = this.selectedUser['TwoFaKey']
+                    that = this
+                    pywebview.api.getUser2FACode(this.selectedUser['TwoFaKey']).then(result => {
+                        that.selectedUser['TwoFa'] = result
+                    })
+                },
+                saveUserInfo(){
+                    that = this;
+                    saveUserID = that.selectedUser['UserID']
+                    UserData = {
+                        "password":this.selectedUser['Password'],
+                        "nickname":this.selectedUser['Nickname'],
+                        "signature": this.selectedUser['Signature']
+                    }
+                    pywebview.api.changeUserData(saveUserID,UserData).then(result => {
+                        console.log(result)
+                    })
+                    // 新建任务
+                    var TaskData = {
+                        "userid":this.selectedUser['UserID'],
+                        "status":3,
+                        "task_type": 2,
+                        "args": "",
+                        "notes":"test"
+                    }
+                    
+                    pywebview.api.insertTask(TaskData).then(result=> {
+                        
+                    })
+
+                    // 关闭窗口
+                    this.closeDetailsPopup()
+                }    
+            },
+            mounted(){
+                this.getUserList();
+                this.getTaskList();
+            }
+        })
+    </script>
+
+</body>
+
+</html>
