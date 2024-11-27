@@ -5,24 +5,31 @@ import webview
 
 
 
-# threadList = []
+threadList = []
 
-# def createTimer():
-#     t = Timer()
-#     t.run_timer()
+def createTimer():
+    global t
+    t = Timer()
+    t.run_timer()
 
-# timer_thread = threading.Thread(target=createTimer,name="Timer")
-# timer_thread.start()
-# timer_thread.join()
+def closeWindowsEvent():
+    global t
+    t.stop()
+    
+
 
 if __name__=="__main__":
+    window = Main_Window()
     main_windows = webview.create_window(
-                                        title='推特自动化',
+                                        title='x自动化',
                                         resizable=True,
-                                        url="templates\index.html",
+                                        url="templates/index.html",
                                         width=922,
                                         height=730,
                                         frameless=False,
-                                        js_api=Main_Window()
+                                        js_api=window,easy_drag=True
                                         )
+    timer_thread = threading.Thread(target=createTimer,name="Timer")
+    timer_thread.start()
+    main_windows.events.closing += closeWindowsEvent
     webview.start(debug=True)

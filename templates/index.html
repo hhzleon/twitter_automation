@@ -5,191 +5,200 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./vue.global.js"></script>
     <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-        background-color: #f4f4f9;
-        font-family: 'Arial', sans-serif;
-    }
+        body {
+            background-color: #f4f4f9;
+            font-family: 'Arial', sans-serif;
+        }
 
-    .all {
-        display: flex;
-        max-width: 1000px;
-        margin: 20px auto;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        background-color: #fff;
-    }
+        .all {
+            display: flex;
+            max-width: 1000px;
+            margin: 20px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
 
-    .left {
-        width: 170px;
-        min-height: 600px;
-        background-color: #0E86D4;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        padding: 20px 0;
-    }
+        .left {
+            width: 170px;
+            min-height: 600px;
+            background-color: #0E86D4;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px 0;
+        }
 
-    .left > button {
-        width: 90%;
-        height: 50px;
-        margin: 5px 0;
-        font-size: 16px;
-        background-color: #003060;
-        color: #fff;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background-color 0.3s, transform 0.3s;
-    }
+        .left>button {
+            width: 90%;
+            height: 50px;
+            margin: 5px 0;
+            font-size: 16px;
+            background-color: #003060;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
 
-    .left > button:hover {
-        background-color: #001F3F;
-        transform: translateY(-2px);
-    }
+        .left>button:hover {
+            background-color: #001F3F;
+            transform: translateY(-2px);
+        }
 
-    .right {
-        flex: 1;
-        padding: 20px;
-    }
+        .right {
+            flex: 1;
+            padding: 20px;
+        }
 
-    .buttons {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-    }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
 
-    .buttons > button {
-        flex: 1;
-        margin: 0 5px;
-        height: 50px;
-        font-size: 16px;
-        color: #fff;
-        background-color: #003060;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s, transform 0.3s;
-    }
+        .buttons>button {
+            flex: 1;
+            margin: 0 5px;
+            height: 50px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #003060;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
 
-    .buttons > button:hover {
-        background-color: #001F3F;
-        transform: translateY(-2px);
-    }
+        .buttons>button:hover {
+            background-color: #001F3F;
+            transform: translateY(-2px);
+        }
 
-    .Users, .tasks {
-        max-height: 450px;
-        overflow-y: auto;
-    }
+        .Users,
+        .tasks {
+            max-height: 450px;
+            overflow-y: auto;
+        }
 
-    .Users > div, .task {
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        background-color: #0E86D4;
-        padding: 10px;
-        margin-bottom: 10px;
-        border-radius: 5px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        transition: background-color 0.3s, transform 0.3s;
-    }
+        .Users>div,
+        .task {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            background-color: #0E86D4;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.3s;
+        }
 
-    .Users > div:hover, .task:hover {
-        background-color: #005F8F;
-        transform: translateY(-2px);
-    }
+        .Users>div:hover,
+        .task:hover {
+            background-color: #005F8F;
+            transform: translateY(-2px);
+        }
 
-    .Users > div > span, .task-header, .task-name, .task-description, .task-status {
-        flex: 1;
-        text-align: center;
-        color: #FFF;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin: 0 5px;
-    }
+        .Users>div>span,
+        .task-header,
+        .task-name,
+        .task-description,
+        .task-status {
+            flex: 1;
+            text-align: center;
+            color: #FFF;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin: 0 5px;
+        }
 
-    .user > button {
-        width: 60px;
-        height: 30px;
-        background-color: #005F8F;
-        color: #FFF;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
+        .user>button {
+            width: 60px;
+            height: 30px;
+            background-color: #005F8F;
+            color: #FFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
-    .user > button:hover {
-        background-color: #004060;
-    }
+        .user>button:hover {
+            background-color: #004060;
+        }
 
-    .error-popup,
-    .user-details-popup {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #fff;
-        color: #333;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        z-index: 9999;
-        max-width: 500px;
-        width: 90%;
-        text-align: center;
-    }
+        .error-popup,
+        .user-details-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
 
-    .error-popup {
-        background-color: #FF4C4C;
-        color: #fff;
-    }
+        .error-popup {
+            background-color: #FF4C4C;
+            color: #fff;
+        }
 
-    .error-popup button, .user-details-popup button {
-        margin-top: 15px;
-        padding: 8px 15px;
-        background-color: #003060;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
+        .error-popup button,
+        .user-details-popup button {
+            margin-top: 15px;
+            padding: 8px 15px;
+            background-color: #003060;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
-    .error-popup button:hover, .user-details-popup button:hover {
-        background-color: #001F3F;
-    }
+        .error-popup button:hover,
+        .user-details-popup button:hover {
+            background-color: #001F3F;
+        }
 
-    .user-details-popup {
-        background-color: #68BBE3;
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 10px;
-    }
+        .user-details-popup {
+            background-color: #68BBE3;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 10px;
+        }
 
-    .user-details-popup p, .user-details-popup input {
-        margin: 0;
-        padding: 4px;
-        background-color: #fff;
-        border-radius: 5px;
-    }
+        .user-details-popup p,
+        .user-details-popup input {
+            margin: 0;
+            padding: 4px;
+            background-color: #fff;
+            border-radius: 5px;
+        }
 
-    .user-details-popup label {
-        font-weight: bold;
-        color: #fff;
-    }
-
-</style>
+        .user-details-popup label {
+            font-weight: bold;
+            color: #fff;
+        }
+    </style>
 
     </style>
 </head>
@@ -213,6 +222,7 @@
                     <span>昵称</span>
                     <span>个性签名</span>
                     <span>操作</span>
+
                 </div>
                 <div class="user" v-for="user in users">
                     <span>{{user['UserID']}}</span>
@@ -225,14 +235,14 @@
         </div>
 
         <div v-if="show==2" class="right">
-        <div class="tasks">
-            <div class="task" v-for="task in tasks">
-                <div class="task-header">{{task.TaskID}}</div>
-                <div class="task-name">{{ task.UserID }}</div>
-                <div class="task-description">{{ task.TaskType }}</div>
-                <div class="task-status">{{ task.Status }}</div>
+            <div class="tasks">
+                <div class="task" v-for="task in tasks">
+                    <div class="task-header">{{task.TaskID}}</div>
+                    <div class="task-name">{{ task.UserID }}</div>
+                    <div class="task-description">{{ task.TaskType }}</div>
+                    <div class="task-status">{{ task.Status }}</div>
+                </div>
             </div>
-        </div>
         </div>
 
         <div class="error-popup" v-if="error">
@@ -241,13 +251,18 @@
         </div>
 
         <div class="user-details-popup" v-if="showDetailsPopup">
-            <label>编号:</label> <p>{{selectedUser.UserID}}</p>
-            <label>用户名:</label> <p>{{selectedUser.Username}}</p>
+            <label>编号:</label>
+            <p>{{selectedUser.UserID}}</p>
+            <label>用户名:</label>
+            <p>{{selectedUser.Username}}</p>
             <label>昵称:</label> <input type="text" v-model="selectedUser.Nickname">
             <label>个性签名:</label> <input type="text" v-model="selectedUser.Signature">
-            <label>头像链接:</label> <p>{{selectedUser.AvatarUrl}}</p>
+            <label>头像链接:</label>
+            <p>{{selectedUser.AvatarUrl}}</p>
+            <label>看右边->:</label><a href="#" @click="getAvatarUrlPath()">选择头像</a>
             <label>密码:</label> <input type="text" v-model="selectedUser.Password">
-            <label>2FA验证码:</label> <p>{{selectedUser.TwoFa}}</p>
+            <label>2FA验证码:</label>
+            <p>{{selectedUser.TwoFa}}</p>
             <label>点击获取->:</label><a href="#" @click="getTwoFANumber()">获取2FA验证码</a>
             <label>2FA验证密钥:</label> <input type="text" v-model="selectedUser.TwoFaKey">
 
@@ -258,10 +273,10 @@
 
     <script>
 
-        window.addEventListener('pywebviewready', function() {
-                console.log("is readlly")
-                app.mount('#app')
-            })
+        window.addEventListener('pywebviewready', function () {
+            console.log("is readlly")
+            app.mount('#app')
+        })
         const { createApp, ref } = Vue
         const app = createApp({
             data() {
@@ -274,9 +289,9 @@
                     errorMessage: "无此用户",
                     showDetailsPopup: false,
                     selectedUser: {},
-                
-                tasks: [
-                ],
+
+                    tasks: [
+                    ],
                 }
             },
             methods: {
@@ -289,11 +304,11 @@
                 closeDetailsPopup() {
                     this.showDetailsPopup = false;
                 },
-                saveUserInfo() {
-                    console.log('User Info Saved', this.selectedUser);
-                    this.closeDetailsPopup();
-                },
-                getUserList(){
+                // saveUserInfo() {
+                //     console.log('User Info Saved', this.selectedUser);
+                //     this.closeDetailsPopup();
+                // },
+                getUserList() {
                     // 获取用户列表
                     var that = this
                     pywebview.api.getUserList().then(result => {
@@ -303,7 +318,7 @@
 
                     })
                 },
-                getTaskList(){
+                getTaskList() {
                     var that = this
                     pywebview.api.getTaskList().then(result => {
                         that.tasks = result;
@@ -312,52 +327,63 @@
 
                     })
                 },
-                DetailsPopup(id){
+                DetailsPopup(id) {
                     // 显示代码
                     that = this
                     pywebview.api.selectUserData(id).then(result => {
                         that.selectedUser = result
                         console.log(result);
-                        
+
                     })
                     this.showDetailsPopup = true
                 },
-                getTwoFANumber(){
-                    this.key = this.selectedUser['TwoFaKey']
+                getTwoFANumber() {
                     that = this
+                    this.key = this.selectedUser['TwoFaKey']
                     pywebview.api.getUser2FACode(this.selectedUser['TwoFaKey']).then(result => {
                         that.selectedUser['TwoFa'] = result
                     })
                 },
-                saveUserInfo(){
+                saveUserInfo() { // 
                     that = this;
                     saveUserID = that.selectedUser['UserID']
-                    UserData = {
-                        "password":this.selectedUser['Password'],
-                        "nickname":this.selectedUser['Nickname'],
-                        "signature": this.selectedUser['Signature']
+                    UserData = { // 要修改的内容
+                        "password": this.selectedUser['Password'], // 密码
+                        "nickname": this.selectedUser['Nickname'], // 昵称
+                        "signature": this.selectedUser['Signature'], // 个性签名
+                        "avatar_url": this.selectedUser['AvatarUrl'], // 头像url
+                        // "background_url": this.selectedUser['']
+                        "twoFaKey": this.selectedUser['TwoFaKey'], // 两步验证密钥
                     }
-                    pywebview.api.changeUserData(saveUserID,UserData).then(result => {
-                        console.log(result)
+                    pywebview.api.changeUserData(saveUserID, UserData).then(result => {  // 修改信息
                     })
                     // 新建任务
                     var TaskData = {
-                        "userid":this.selectedUser['UserID'],
-                        "status":3,
-                        "task_type": 2,
+                        "userid": this.selectedUser['UserID'],
+                        "status": 3, // 等待中
+                        "task_type": "modify_info", // 修改信息
                         "args": "",
-                        "notes":"test"
+                        "notes": "test"
                     }
-                    
-                    pywebview.api.insertTask(TaskData).then(result=> {
-                        
+
+                    pywebview.api.insertTask(TaskData).then(result => {  // 插入任务
+                        console.log(result)
                     })
 
                     // 关闭窗口
                     this.closeDetailsPopup()
-                }    
+                },
+                getAvatarUrlPath() {
+                    that = this
+                    pywebview.api.selectFilePath().then(result => {
+                        this.selectedUser.AvatarUrl = result
+                        console.log(result)
+                    })
+                    
+                }
+
             },
-            mounted(){
+            mounted() {
                 this.getUserList();
                 this.getTaskList();
             }

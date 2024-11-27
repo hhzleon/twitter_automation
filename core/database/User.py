@@ -18,13 +18,3 @@ class User(Base):
     signature = Column(String)  # 签名
     avatar_url = Column(String)  # 头像链接
     background_url = Column(String)  # 背景图片链接
-
-    
-
-
-# engine = create_engine('sqlite:///data.db')
-# Base.metadata.create_all(engine)
-# Session = sessionmaker(bind=engine)
-# session = Session()
-# user_data = session.query(UserData).filter_by()
-# print (user_data.all())

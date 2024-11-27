@@ -1,10 +1,11 @@
 import sys
 sys.path.append('d:/code/twitterAuto')
-
+import webview
 from core.database.User import User
 from core.database.Task import Task
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
+
 from core.TFA import getTwoFa
 
 class Main_Window:
@@ -84,13 +85,17 @@ class Main_Window:
             return None
         finally:
             session.close()
+    def selectFilePath(self):
+        file_types = ('Image Files (*.bmp;*.jpg;*.gif;*.png)', 'All files (*.*)')
+        w = webview.create_window("Hello",width=1,height=1,frameless=True)
+        w.hide()
+        result = w.create_file_dialog(
+            webview.OPEN_DIALOG, allow_multiple=True, file_types=file_types
+        )
+        w.destroy()
+        return result[0]
 
-
-    # 导出账户
-
-    # 导入账户
-
-
+        # webview.start(w)
 
     # 获取任务列表
     def getTaskList(self):
@@ -127,7 +132,7 @@ class Main_Window:
                 task_type=TaskDictData['task_type'],
                 args=TaskDictData['args'],
                 notes=TaskDictData['notes']
-            )
+            ) 
             session.add(new_task)
             session.commit()
             return new_task.id
