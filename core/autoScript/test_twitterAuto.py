@@ -5,7 +5,12 @@ import unittest
 from ddt import ddt,unpack,file_data
 from twitterAuto import TwitterAuto
 from core.database.User import User
+from core.database.Task import Task
 import webview
+
+import logging
+logging.basicConfig(filename="app_errors.log",level=logging.ERROR)
+
 @ddt
 class TestTwitterAuto(TestCase):
     pass
@@ -20,15 +25,28 @@ class TestTwitterAuto(TestCase):
         user.twoFaKey = key 
         user.id = id
         self.assertTrue(TwitterAuto(user=user).login())
-    @file_data("../../testUserData_1.json")
+    @file_data("../../testUserData.json")
     @unpack
     @skip("测试过了")
     def test_modify_info(self,id,username,password,key,auth_token):
         print ("Test User",username)
         user = User()
         user.cookies = auth_token 
+        user.avatar_url = r"C:\Users\work\Pictures\PixPin_2024-11-23_19-16-58.png"
         user.id = id
-        self.assertTrue(TwitterAuto(user=user).modify_info())
+        task = Task()
+        ot = TwitterAuto(user=user,task=task)
+        self.assertTrue(ot.error_handler(ot.checkRequestIsTrue()))
+    
+    def test_checkRequestIsTrue(self):
+        user = User()
+        user.avatar_url = r"C:\Users\work\Pictures\PixPin_2024-11-23_19-16-58.png"
+        user.id = id
+        task = Task()
+        ot = TwitterAuto(user=user,task=task)
+        def wrapper():
+            ot.modify_info()
+        self.assertTrue(ot.error_handler(wrapper))
 
 if __name__ == "__main__":
     unittest.main()

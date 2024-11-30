@@ -7,6 +7,7 @@ from core.autoScript.twitterAuto import TwitterAuto
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 import threading
+
 class Timer:
     # 变量定义
     # 定义任务数量
@@ -49,9 +50,11 @@ class Timer:
         if (task_info==False):
             return False
         if (task_info['task_type']=="login"):
-            TwitterAuto(user=task_info['task_user']).login()
+            TwitterAuto(user=task_info['task_user'],task=task_info['task']).login()
         elif(task_info['task_type']=="modify_info"):    # 修改信息任务
-            TwitterAuto(user=task_info['task_user']).modify_info()
+            oTwitterAuto = TwitterAuto(user=task_info['task_user'],task=task_info['task'])
+            oTwitterAuto.error_handler(oTwitterAuto.modify_info())
+            
         
         
     # 执行下一条任务
@@ -76,6 +79,11 @@ class Timer:
 
     def stop(self):
         self.is_running = False
+
+
+            
+
+
 
 if __name__=="__main__":
     timer = Timer()

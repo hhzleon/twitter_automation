@@ -1,9 +1,7 @@
-import threading,time
+import threading
 from core.Timer import Timer
 from core.window.main_window import Main_Window
 import webview
-
-
 
 threadList = []
 
@@ -32,4 +30,4 @@ if __name__=="__main__":
     timer_thread = threading.Thread(target=createTimer,name="Timer")
     timer_thread.start()
     main_windows.events.closing += closeWindowsEvent
-    webview.start(debug=True)
+    webview.start(debug=False)

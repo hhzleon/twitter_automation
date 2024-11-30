@@ -1,0 +1,80 @@
+ERROR:root:��������wrapper:�����ʱ��������
+Traceback (most recent call last):
+  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 160, in error_handler
+    return func(*args, **kwargs)  # ִ�д���ĺ���
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "d:\code\twitterAuto\core\autoScript\test_twitterAuto.py", line 49, in wrapper
+    ot.checkRequestIsTrue("1","1")
+  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 143, in checkRequestIsTrue
+    raise Exception("�����ʱ��������")
+Exception: �����ʱ��������
+ERROR:root:错误发生在wrapper:检测封包时发生错误
+Traceback (most recent call last):
+  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 161, in error_handler
+    return func(*args, **kwargs)  # 执行传入的函数
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "d:\code\twitterAuto\core\autoScript\test_twitterAuto.py", line 49, in wrapper
+    ot.checkRequestIsTrue("1","1")
+  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 144, in checkRequestIsTrue
+    raise Exception("检测封包时发生错误")
+Exception: 检测封包时发生错误
+ERROR:root:错误发生在wrapper:检测封包时发生错误
+Traceback (most recent call last):
+  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 161, in error_handler
+    return func(*args, **kwargs)  # 执行传入的函数
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "d:\code\twitterAuto\core\autoScript\test_twitterAuto.py", line 49, in wrapper
+    ot.checkRequestIsTrue("1","1")
+  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 144, in checkRequestIsTrue
+    raise Exception("检测封包时发生错误")
+Exception: 检测封包时发生错误
+ERROR:root:错误发生在wrapper:'str' object has no attribute 'click'
+Traceback (most recent call last):
+  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 161, in error_handler
+    return func(*args, **kwargs)  # 执行传入的函数
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "d:\code\twitterAuto\core\autoScript\test_twitterAuto.py", line 49, in wrapper
+    ot.checkRequestIsTrue("1","1")
+  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 149, in checkRequestIsTrue
+    button.click()
+    ^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'click'
+ERROR:root:错误发生在wrapper:
+没有找到元素。
+method: ele()
+args: {'locator': '@name=displayName', 'index': 1, 'timeout': 10}
+Traceback (most recent call last):
+  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 161, in error_handler
+    return func(*args, **kwargs)  # 执行传入的函数
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "d:\code\twitterAuto\core\autoScript\test_twitterAuto.py", line 49, in wrapper
+    ot.modify_info()
+  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 77, in modify_info
+    self.tab.ele("@name=displayName").clear()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\work\miniconda3\Lib\site-packages\DrissionPage\_elements\none_element.py", line 38, in __getattr__
+    raise ElementNotFoundError(None, self.method, self.args)
+DrissionPage.errors.ElementNotFoundError: 
+没有找到元素。
+method: ele()
+args: {'locator': '@name=displayName', 'index': 1, 'timeout': 10}
+ERROR:root:错误发生在wrapper:cookies失效
+Traceback (most recent call last):
+  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 167, in error_handler
+    return func(*args, **kwargs)  # 执行传入的函数
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "d:\code\twitterAuto\core\autoScript\test_twitterAuto.py", line 49, in wrapper
+    ot.modify_info()
+  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 79, in modify_info
+    raise Exception("cookies失效")
+Exception: cookies失效
+ERROR:root:错误发生在wrapper:无cookies可以使用
+Traceback (most recent call last):
+  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 167, in error_handler
+    return func(*args, **kwargs)  # 执行传入的函数
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "d:\code\twitterAuto\core\autoScript\test_twitterAuto.py", line 48, in wrapper
+    ot.modify_info()
+  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 71, in modify_info
+    raise Exception("无cookies可以使用")
+Exception: 无cookies可以使用
