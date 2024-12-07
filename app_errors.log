@@ -1,80 +1,59 @@
-ERROR:root:��������wrapper:�����ʱ��������
-Traceback (most recent call last):
-  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 160, in error_handler
-    return func(*args, **kwargs)  # ִ�д���ĺ���
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "d:\code\twitterAuto\core\autoScript\test_twitterAuto.py", line 49, in wrapper
-    ot.checkRequestIsTrue("1","1")
-  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 143, in checkRequestIsTrue
-    raise Exception("�����ʱ��������")
-Exception: �����ʱ��������
-ERROR:root:错误发生在wrapper:检测封包时发生错误
-Traceback (most recent call last):
-  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 161, in error_handler
-    return func(*args, **kwargs)  # 执行传入的函数
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "d:\code\twitterAuto\core\autoScript\test_twitterAuto.py", line 49, in wrapper
-    ot.checkRequestIsTrue("1","1")
-  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 144, in checkRequestIsTrue
-    raise Exception("检测封包时发生错误")
-Exception: 检测封包时发生错误
-ERROR:root:错误发生在wrapper:检测封包时发生错误
-Traceback (most recent call last):
-  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 161, in error_handler
-    return func(*args, **kwargs)  # 执行传入的函数
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "d:\code\twitterAuto\core\autoScript\test_twitterAuto.py", line 49, in wrapper
-    ot.checkRequestIsTrue("1","1")
-  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 144, in checkRequestIsTrue
-    raise Exception("检测封包时发生错误")
-Exception: 检测封包时发生错误
-ERROR:root:错误发生在wrapper:'str' object has no attribute 'click'
-Traceback (most recent call last):
-  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 161, in error_handler
-    return func(*args, **kwargs)  # 执行传入的函数
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "d:\code\twitterAuto\core\autoScript\test_twitterAuto.py", line 49, in wrapper
-    ot.checkRequestIsTrue("1","1")
-  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 149, in checkRequestIsTrue
-    button.click()
-    ^^^^^^^^^^^^
-AttributeError: 'str' object has no attribute 'click'
-ERROR:root:错误发生在wrapper:
-没有找到元素。
-method: ele()
-args: {'locator': '@name=displayName', 'index': 1, 'timeout': 10}
-Traceback (most recent call last):
-  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 161, in error_handler
-    return func(*args, **kwargs)  # 执行传入的函数
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "d:\code\twitterAuto\core\autoScript\test_twitterAuto.py", line 49, in wrapper
-    ot.modify_info()
-  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 77, in modify_info
-    self.tab.ele("@name=displayName").clear()
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\work\miniconda3\Lib\site-packages\DrissionPage\_elements\none_element.py", line 38, in __getattr__
-    raise ElementNotFoundError(None, self.method, self.args)
-DrissionPage.errors.ElementNotFoundError: 
-没有找到元素。
-method: ele()
-args: {'locator': '@name=displayName', 'index': 1, 'timeout': 10}
-ERROR:root:错误发生在wrapper:cookies失效
-Traceback (most recent call last):
-  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 167, in error_handler
-    return func(*args, **kwargs)  # 执行传入的函数
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "d:\code\twitterAuto\core\autoScript\test_twitterAuto.py", line 49, in wrapper
-    ot.modify_info()
-  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 79, in modify_info
-    raise Exception("cookies失效")
-Exception: cookies失效
-ERROR:root:错误发生在wrapper:无cookies可以使用
-Traceback (most recent call last):
-  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 167, in error_handler
-    return func(*args, **kwargs)  # 执行传入的函数
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "d:\code\twitterAuto\core\autoScript\test_twitterAuto.py", line 48, in wrapper
-    ot.modify_info()
-  File "d:\code\twitterAuto\core\autoScript\twitterAuto.py", line 71, in modify_info
-    raise Exception("无cookies可以使用")
-Exception: 无cookies可以使用
+DEBUG:pywebview:Using WinForms / Chromium
+DEBUG:pywebview:Using WinForms / Chromium
+DEBUG:pywebview:Using WinForms / Chromium
+DEBUG:pywebview:Using WinForms / Chromium
+DEBUG:pywebview:Using WinForms / Chromium
+DEBUG:pywebview:Using WinForms / Chromium
+DEBUG:pywebview:Using WinForms / Chromium
+DEBUG:pywebview:Using WinForms / Chromium
+DEBUG:pywebview:Using WinForms / Chromium
+DEBUG:pywebview:Using WinForms / Chromium
+DEBUG:pywebview:Using WinForms / Chromium
+DEBUG:pywebview:Using WinForms / Chromium
+DEBUG:pywebview:Using WinForms / Chromium
+DEBUG:pywebview:Using WinForms / Chromium
+INFO:root:Errtime: 1733504272.5501156 ErrUser: 6 ErrTask: 11
+INFO:root:Errtime: 1733505260.1846578 ErrUser: 1 ErrTask: 1
+INFO:root:Errtime: 1733505261.369267 ErrUser: 9 ErrTask: 2
+INFO:root:Errtime: 1733505266.413299 ErrUser: 6 ErrTask: 4
+INFO:root:Errtime: 1733505270.3280244 ErrUser: 3 ErrTask: 3
+INFO:root:Errtime: 1733505281.280764 ErrUser: 2 ErrTask: 5
+INFO:root:Errtime: 1733505284.785187 ErrUser: 4 ErrTask: 6
+INFO:root:Errtime: 1733505285.9980893 ErrUser: 10 ErrTask: 7
+INFO:root:Errtime: 1733505293.6854534 ErrUser: 7 ErrTask: 8
+INFO:root:Errtime: 1733505304.2926166 ErrUser: 8 ErrTask: 9
+INFO:root:Errtime: 1733505305.491187 ErrUser: 5 ErrTask: 10
+INFO:root:Errtime: 1733505391.01649 ErrUser: 7 ErrTask: 2
+INFO:root:Errtime: 1733505391.704199 ErrUser: 2 ErrTask: 1
+INFO:root:Errtime: 1733505392.156671 ErrUser: 9 ErrTask: 3
+INFO:root:Errtime: 1733505392.9638736 ErrUser: 1 ErrTask: 4
+INFO:root:Errtime: 1733505410.8268812 ErrUser: 10 ErrTask: 5
+INFO:root:Errtime: 1733505411.6668444 ErrUser: 8 ErrTask: 7
+INFO:root:Errtime: 1733505413.963107 ErrUser: 3 ErrTask: 6
+INFO:root:Errtime: 1733505414.7370026 ErrUser: 4 ErrTask: 8
+INFO:root:Errtime: 1733505431.499051 ErrUser: 6 ErrTask: 9
+INFO:root:Errtime: 1733505431.7418547 ErrUser: 5 ErrTask: 10
+INFO:root:Errtime: 1733505506.7269256 ErrUser: 1 ErrTask: 11
+INFO:root:Errtime: 1733505576.2371461 ErrUser: 8 ErrTask: 15
+INFO:root:Errtime: 1733571096.234375 ErrUser: 3 ErrTask: None
+INFO:root:Errtime: 1733571183.5210207 ErrUser: 3 ErrTask: None
+INFO:root:Errtime: 1733571712.3360455 ErrUser: 3 ErrTask: None
+INFO:root:Errtime: 1733571735.7753654 ErrUser: 3 ErrTask: None
+INFO:root:Errtime: 1733571759.5328956 ErrUser: 3 ErrTask: None
+INFO:root:Errtime: 1733571783.2997532 ErrUser: 3 ErrTask: None
+INFO:root:Errtime: 1733574552.0526948 ErrUser: 3 ErrTask: None
+INFO:root:Errtime: 1733574682.803565 ErrUser: 2 ErrTask: 22
+INFO:root:Errtime: 1733575326.091129 ErrUser: 2 ErrTask: 23
+INFO:root:Errtime: 1733575393.638742 ErrUser: 1 ErrTask: 24
+INFO:root:Errtime: 1733575397.2545383 ErrUser: 3 ErrTask: 26
+INFO:root:Errtime: 1733575399.2717457 ErrUser: 5 ErrTask: 27
+INFO:root:Errtime: 1733575418.8087583 ErrUser: 10 ErrTask: 28
+INFO:root:Errtime: 1733575427.77774 ErrUser: 9 ErrTask: 29
+INFO:root:Errtime: 1733575429.628294 ErrUser: 4 ErrTask: 31
+INFO:root:Errtime: 1733575444.9069862 ErrUser: 2 ErrTask: 32
+INFO:root:Errtime: 1733575457.2544324 ErrUser: 8 ErrTask: 33
+INFO:root:Errtime: 1733576140.4600272 ErrUser: 7 ErrTask: 34
+INFO:root:Errtime: 1733576220.3726027 ErrUser: 6 ErrTask: 35
+INFO:root:Errtime: 1733577367.1422207 ErrUser: 10 ErrTask: 43
+INFO:root:Errtime: 1733577371.244289 ErrUser: 8 ErrTask: 44
+INFO:root:Errtime: 1733577373.2001653 ErrUser: 9 ErrTask: 45

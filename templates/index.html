@@ -212,24 +212,26 @@
         <div v-if="show==1" class="right">
             <div class="buttons">
                 <button>导出账户</button>
-                <button>导入账户</button>
-                <button>批量操作</button>
+                <button @click="importUsers">导入账户</button>
+                <button @click="executeBatchOperation">批量操作</button>
             </div>
             <div class="Users">
                 <div>
+                    <input type="checkbox" @click="toggleSelectAll">
                     <span>标号</span>
                     <span>账号</span>
                     <span>昵称</span>
                     <span>个性签名</span>
                     <span>操作</span>
-
                 </div>
                 <div class="user" v-for="user in users">
+                    <input type="checkbox" :id="'select_' + user['UserID']" v-model="user.selected">
                     <span>{{user['UserID']}}</span>
                     <span>{{user['Username']}}</span>
                     <span>{{user['Nickname']}}</span>
                     <span>{{user['Signature']}}</span>
                     <button @click="DetailsPopup(user['UserID'])">修改</button>
+                    <button @click="deleteUser(user['UserID'])">删除</button>
                 </div>
             </div>
         </div>
@@ -239,8 +241,15 @@
                 <div class="task" v-for="task in tasks">
                     <div class="task-header">{{task.TaskID}}</div>
                     <div class="task-name">{{ task.UserID }}</div>
-                    <div class="task-description">{{ task.TaskType }}</div>
-                    <div class="task-status">{{ task.Status }}</div>
+                    <div class="task-description">{{ task.TaskType === 'login' ? '登录' : task.TaskType === 'modify_info'
+                        ? '修改信息' : task.TaskType }}</div>
+                    <div class="task-status">
+                        <span v-if="task.Status == 0">成功</span>
+                        <span v-else-if="task.Status == 1">进行中</span>
+                        <span v-else-if="task.Status == 2">失败</span>
+                        <span v-else-if="task.Status == 3">等待中</span>
+                        <span v-else>未知状态</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -292,11 +301,16 @@
 
                     tasks: [
                     ],
+                    selectedUsers: [], // 批量选中用户的列表
                 }
             },
             methods: {
                 CKshow(id) {
+                    this.getUserList();
+                    this.getTaskList();
                     this.show = id;
+                    
+
                 },
                 closeErrorPopup() {
                     this.error = false;
@@ -379,10 +393,46 @@
                         this.selectedUser.AvatarUrl = result
                         console.log(result)
                     })
-                    
+
                 },
-                // 批量导入用户
-                
+                toggleSelectAll() {
+                    const isAllSelected = this.users.every(user => user.selected);
+                    this.users.forEach(user => user.selected = !isAllSelected);
+                },
+                executeBatchOperation() {
+                    const selectedUsers = this.users.filter(user => user.selected);
+                    const userIds = selectedUsers.map(user => user.UserID);
+                    pywebview.api.executeBatchOperation(userIds).then(result => {
+                        console.log("Batch operation result:", result);
+                    });
+                },
+                importUsers() {
+                    //TODO 这个函数未测试,需要重写
+                    console.log("调用 importUsers 函数");
+                    pywebview.api.importUsers().then(result => {
+                        console.log("导入用户结果:", result);
+                        // 可以根据需要更新用户列表或进行其他操作
+                    }).catch(error => {
+                        console.error("导入用户时发生错误:", error);
+                    });
+                },
+                deleteUser(userId) {
+                    if (confirm('确定要删除此用户吗？')) {
+                        pywebview.api.deleteUserById(userId).then(result => {
+                            console.log('删除用户结果:', result);
+                            if (result.success) {
+                                // 从用户列表中移除该用户
+                                this.users = this.users.filter(user => user.UserID !== userId);
+                                alert('用户删除成功');
+                            } else {
+                                alert('删除用户失败: ' + result.error);
+                            }
+                        }).catch(error => {
+                            alert('删除用户时发生错误: ' + error);
+                        });
+                    }
+                }
+
 
             },
             mounted() {

@@ -5,7 +5,7 @@ from core.database.User import User
 from core.database.Task import Task
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
-
+from core.window.batchoperation_window import batchoperation_api
 from core.TFA import getTwoFa
 
 class Main_Window:
@@ -101,7 +101,7 @@ class Main_Window:
     def getTaskList(self):
         session = self.Session()
         try:
-            tasks = session.query(Task).all()
+            tasks = session.query(Task).order_by(Task.id.desc()).all()
             task_list = [
                 {
                     'TaskID': task.id,
@@ -143,11 +143,95 @@ class Main_Window:
         finally:
             session.close()
 
-    # 获取任务列表
+    def executeBatchOperation(self, userIds):
+        session = self.Session()
+        try:
+            if userIds:
+                # 打开批量操作界面并传入用户ID
+                batch_api = batchoperation_api(userIds)
+                batch_api.Session = self.Session
+                window = webview.create_window('批量操作窗口', url='templates/batchoperation.html', js_api=batch_api, width=800, height=700, resizable=True)
+                # 传入用户数据
+                webview.start(debug=True)
+            else:
+                print("No users selected for batch operation.")
 
-if __name__=="__main__":
-    # L = Main_Window().getTaskList()
-    # for i in L:
-    #     print (i)
-    L = Main_Window().getUser2FACode("BA6U6YT5XYDJNCZD")
-    print(L)
+        except Exception as e:
+            print("Batch operation failed:", e)
+        finally:
+            session.close()
+
+    def importUsers(self):
+        #TODO 这个函数未测试,需要重写
+        session = self.Session()
+        try:
+            # 打开用户文件并读取内容
+            file_types = ('Text Files (*.txt)', 'All files (*.*)')
+            w = webview.create_window("选择用户文件", width=1, height=1, frameless=True)
+            w.hide()
+            result = w.create_file_dialog(webview.OPEN_DIALOG, allow_multiple=False, file_types=file_types)
+            # webview.start()
+            w.destroy()
+            
+            if result:
+                file_path = result[0]
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    lines = f.readlines()
+
+                for line in lines:
+                    # 根据文件格式假设: username, password, 2fa, ......, cookies
+                    parts = line.strip().split('~~~~')
+                    if len(parts) >= 7:
+                        username = parts[0]
+                        password = parts[1]
+                        twofa = parts[2]
+                        # 假设我们还需要 id, status, avatar_url 基本信息以进行处理
+                        cookies = parts[6]
+                        email = parts[7]
+
+                        # 创建新的用户对象
+                        new_user = User(
+                            username=username,
+                            password=password,
+                            twoFaKey=twofa,
+                            cookies=cookies,
+                            email=email
+                        )
+                        # 添加到会话
+                        session.add(new_user)
+                # 提交会话
+                session.commit()
+                print("用户导入成功")
+            else:
+                print("未选择任何文件")
+        except FileNotFoundError:
+            print("文件未找到，请检查文件路径")
+        except Exception as e:
+            print("导入用户时发生错误:", e)
+            session.rollback()
+        finally:
+            session.close()
+
+    def deleteUserById(self, user_id):
+        """
+        根据用户ID删除用户
+        """
+        session = self.Session()
+        try:
+            # 查询需要删除的用户
+            user_to_delete = session.query(User).filter_by(id=user_id).first()
+            if user_to_delete:
+                # 删除用户
+                session.delete(user_to_delete)
+                session.commit()
+                print("删除用户成功")
+                return {'success': True}
+            else:
+                print("未找到该用户")
+                return {'success': False, 'error': 'User not found'}
+        except Exception as e:
+            print("删除用户时发生错误:", e)
+            session.rollback()
+            return {'success': False, 'error': str(e)}
+        finally:
+            session.close()

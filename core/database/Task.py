@@ -13,7 +13,7 @@ class Task(Base):
 
     id = Column(Integer, primary_key=True)  # 任务ID
     userid = Column(Integer)  # 用户ID
-    status = Column(String)  # 状态     0成功   1进行中 2失败   3等待中
+    status = Column(Integer)  # 状态     0成功   1进行中 2失败   3等待中
     task_type = Column(String)  # 任务类型  1登录   2修改信息   3暂无
     args = Column(String)  # 参数
     notes = Column(String)  # 备注

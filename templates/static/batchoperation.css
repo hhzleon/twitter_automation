@@ -1,0 +1,215 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; /* 淡蓝色背景 */
+}
+
+a {
+    text-decoration: none;
+    color: #1e90ff; /* 深蓝色文字 */
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #4682b4; /* 浅蓝色悬停效果 */
+}
+
+#app {
+    /* width: 500px; */
+    height: 600px;
+    border: 1px solid #1e90ff; /* 深蓝色边框 */
+    display: flex;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#app > .leftDiv {
+    margin-top: 10px;
+    width: 500px;
+    height: 580px;
+    border-right: 1px solid #1e90ff; /* 深蓝色边框 */
+    margin-left: 5px;
+    background-color: #e6f2ff; /* 浅蓝色背景 */
+    overflow-y: auto;
+}
+
+#app > .rightDiv {
+    margin-top: 10px;
+    width: calc(500px - 230px);
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f8ff; /* 淡蓝色背景 */
+    padding: 10px;
+}
+
+#images {
+    display: flex;
+    justify-content: space-around;
+}
+
+#avatar_url, #backgroundImage_url {
+    border: 1px solid #1e90ff; /* 深蓝色边框 */
+    border-radius: 5px;
+    transition: transform 0.3s;
+}
+
+#avatar_url:hover, #backgroundImage_url:hover {
+    transform: scale(1.05);
+}
+
+.file_select > input {
+    border: 1px solid #1e90ff; /* 深蓝色边框 */
+    height: 20px;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.file_select > a {
+    display: inline-block;
+    border: 1px solid #1e90ff; /* 深蓝色边框 */
+    width: 51px;
+    height: 20px;
+    opacity: 1;
+    text-align: center;
+    margin-left: 5px;
+    background-color: #1e90ff; /* 深蓝色背景 */
+    color: white;
+    border-radius: 4px;
+    line-height: 20px;
+    transition: background-color 0.3s;
+}
+
+.file_select > a:hover {
+    background-color: #4682b4; /* 浅蓝色悬停效果 */
+}
+
+.file_select + textarea {
+    margin-top: 8px;
+    width: 245px;
+    height: 115px;
+    border: 1px solid #1e90ff; /* 深蓝色边框 */
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.rightDiv {
+    padding-left: 8px;
+}
+
+.rightDiv > #buttons {
+    align-self: flex-end;
+    margin-top: 100px;
+}
+
+.rightDiv > #buttons > a {
+    display: inline-block;
+    height: 33px;
+    width: 80px;
+    border: 1px solid #1e90ff; /* 深蓝色边框 */
+    text-align: center;
+    line-height: 33px;
+    margin-right: 5px;
+    background-color: #1e90ff; /* 深蓝色背景 */
+    color: white;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.rightDiv > #buttons > a:hover {
+    background-color: #4682b4; /* 浅蓝色悬停效果 */
+}
+
+.leftDiv > .user {
+    width: 400px;
+    height: 33px;
+    border-bottom: 1px solid #1e90ff; /* 深蓝色边框 */
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.leftDiv > .user > span {
+    display: inline-block;
+    line-height: 33px;
+    padding-left: 5px;
+    color: #1e90ff; /* 深蓝色文字 */
+}
+
+.leftDiv > .user > a {
+    display: inline-block;
+    height: 20px;
+    width: 40px;
+    line-height: 20px;
+    text-align: center;
+    border: 1px solid #1e90ff; /* 深蓝色边框 */
+    margin-left: 5px;
+    background-color: #1e90ff; /* 深蓝色背景 */
+    color: white;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.leftDiv > .user > a:hover {
+    background-color: #4682b4; /* 浅蓝色悬停效果 */
+}
+
+.leftDiv {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.rightDiv > .file_select > input,
+.rightDiv > .file_select > a {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.rightDiv > .file_select > input:focus,
+.rightDiv > .file_select > a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(30, 144, 255, 0.5);
+}
+
+.rightDiv > #buttons > a {
+    transform: translateY(0);
+    animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-5px);
+    }
+}
+
+.leftDiv > .user {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.leftDiv > .user > span,
+.leftDiv > .user > a {
+    transition: transform 0.3s ease-in-out;
+}
+
+.leftDiv > .user:hover > span,
+.leftDiv > .user:hover > a {
+    transform: translateX(5px);
+}

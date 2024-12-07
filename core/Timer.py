@@ -30,12 +30,10 @@ class Timer:
         # 获取任务信息
         
         task = self.session.query(Task).filter_by(status=3).first()
-        print("task",task)
         if not task:
             return False
         # 获取关联用户
         user = self.session.query(User).filter_by(id=task.userid).first()
-        print ("user",user)
         if not user:
             return False
         
@@ -46,24 +44,22 @@ class Timer:
         return {"task":task,"task_type":task.task_type,"task_user":user,"task_args":task.args}
     def run(self):
         task_info = self.get_current_task() # 获取任务信息
-        print(task_info)
         if (task_info==False):
             return False
         if (task_info['task_type']=="login"):
-            TwitterAuto(user=task_info['task_user'],task=task_info['task']).login()
+            oTwitterAuto = TwitterAuto(user=task_info['task_user'],task=task_info['task'])
+            oTwitterAuto.error_handler(oTwitterAuto.login())
+
         elif(task_info['task_type']=="modify_info"):    # 修改信息任务
             oTwitterAuto = TwitterAuto(user=task_info['task_user'],task=task_info['task'])
             oTwitterAuto.error_handler(oTwitterAuto.modify_info())
             
-        
-        
     # 执行下一条任务
     def execute_next_task(self):
         task = threading.Thread(target=self.run)
         task.start()
         # print("正在执行任务")
         self.tasks_in_progress.append(task)
-        print ("添加后",len(self.tasks_in_progress))
 
     def clean_up_completed_tasks(self):
         self.tasks_in_progress = [task for task in self.tasks_in_progress if task.is_alive()]

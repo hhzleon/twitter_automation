@@ -18,3 +18,4 @@ class User(Base):
     signature = Column(String)  # 签名
     avatar_url = Column(String)  # 头像链接
     background_url = Column(String)  # 背景图片链接
+    email = Column(String) # email

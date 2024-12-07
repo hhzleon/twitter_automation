@@ -1,15 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>批量操作</title>
     <script src="./vue.global.js"></script>
+    <link rel="stylesheet" href="./static/batchoperation.css">
 </head>
+
 <body>
 
     <div id="app">
-        
+        <div class="leftDiv">
+            <div v-for="user in this.userList" class="user">
+                <span>{{user['id']}}</span>
+                <span>{{user['username']}}</span>
+                <span v-if="user['status']==1">已同步</span>
+                <span v-if="user['status']==2">未同步</span>
+                <a href="#" v-if="user['status']==2">同步</a>
+                <a href="#" @click="removeUserFromSelectionList(user['id'])">取消</a>
+                <span v-if="user.task_assigned">任务已分配</span>
+                <span v-else>任务未分配</span>
+            </div>
+        </div>
+        <div class="rightDiv">
+            <div>
+                <div class="file_select">
+                    <input type="text" v-model="avatar_url" placeholder="头像地址" name="nicknameURL" id="nicknameURL">
+                    <a href="#" @click="selectAvatar">导入</a>
+                </div>
+            </div>
+            <div>
+                <div class="file_select">
+                    <input type="text" v-model="background_url" placeholder="背景图地址" name="nicknameURL" id="nicknameURL">
+                    <a href="#" @click="selectBackgroundImage">导入</a>
+                </div>
+            </div>
+            <!-- nickname文件选择 -->
+            <div>
+                <div class="file_select">
+                    <input type="text" v-model="nicknameURL" placeholder="输入昵称路径" name="nicknameURL" id="nicknameURL">
+                    <a href="#" @click="selectNicknameFile">导入</a>
+                </div>
+                <textarea v-model="nicknameData" placeholder="在此输入昵称内容" name="nicknameData"
+                    id="nicknameData"></textarea>
+            </div>
+            <!-- 签名文件选择 -->
+            <div>
+                <div class="file_select">
+                    <input type="text" v-model="signatureURL" placeholder="输入签名路径" name="signatureURL"
+                        id="signatureURL">
+                    <a href="#" @click="selectSignatureFile">导入</a>
+                </div>
+                <textarea v-model="signatureData" placeholder="在此输入签名内容" name="signatureData"
+                    id="signatureData"></textarea>
+            </div>
+            <div id="buttons">
+                <a href="#" @click="assignTask">分配任务</a>
+                <a href="#" @click="syncUsers">同步用户</a>
+                <a href="#">取消</a>
+                <a href="#" @click="startTask">开始任务</a>
+            </div>
+        </div>
 
 
     </div>
@@ -17,46 +70,234 @@
 
     <script>
         window.addEventListener('pywebviewready', function () {
-            console.log("is readlly")
-            app.mount('#app')
-        })
-        const { createApp, ref } = Vue
+            app.mount('#app');
+        });
+
+        const { createApp, ref } = Vue;
         const app = createApp({
             data() {
                 return {
+                    // 用户数组
+                    userList: [
+                        {
+                            "username": "test1",
+                            "id": 1,
+                            "status": 1,
+                            "avatar_url": null,
+                            "background_url": null,
+                            "nickname": null,
+                            "signature": null,
+                            "task_assigned": false
+                        },
+                        {
+                            "username": "test1",
+                            "id": 1,
+                            "status": 1,
+                            "avatar_url": null,
+                            "background_url": null,
+                            "nickname": null,
+                            "signature": null,
+                            "task_assigned": false
+                        },
+                        {
+                            "username": "test1",
+                            "id": 1,
+                            "status": 1,
+                            "avatar_url": null,
+                            "background_url": null,
+                            "nickname": null,
+                            "signature": null,
+                            "task_assigned": false
+                        }
+                    ],
+                    // 头像路径
+                    avatar_url: "",
+                    // 背景图路径
+                    background_url: "",
 
-                }
+                    // 昵称路径
+                    nicknameURL: "",
+                    // 昵称内容
+                    nicknameData: "1",
+                    // 签名路径
+                    signatureURL: "",
+                    // 签名内容
+                    signatureData: "1"
+                };
             },
             methods: {
-                // <!-- 查询显示用户列表 -->
-                
-                // <!-- 将用户插入选择列表 -->
-                // <!-- 将用户移除选择列表 -->
+                // 查询显示用户列表
+                queryUserList() {
+                    this.userList = [];
+                    pywebview.api.returnUsers().then(result => {
+                        // console.log(result)
+                        this.userList = result.map(user => ({
+                            username: user.Username,
+                            id: user.UserID,
+                            signature: user.Signature,
+                            avatar_url: user.AvatarURL,
+                            status: user.Status, // 使用返回的状态
+                            background_url: null, // 使用返回的背景图或默认null
+                            nickname:  null, // 使用返回的昵称或默认null
+                            task_assigned: false // 使用返回的任务分配状态或默认false
+                        }));
+                    });
+                },
 
-                // <!-- 查询用户数量 -->
-                
-                // <!-- 选择头像 -->
+                // 将用户移除选择列表
+                removeUserFromSelectionList(user_id) {
+                    this.userList = this.userList.filter(element => element['id'] !== user_id);
+                },
 
-                // <!-- 选择背景图 -->
+                // 选择头像
+                selectAvatar() {
+                    // 实现逻辑
+                    that = this;
+                    pywebview.api.selectAvatarURL().then(result => {
+                        that.avatar_url = result;
+                        console.log(result);
+                    });
+                },
 
-                // <!-- 选择昵称文件 -->
+                // 选择背景图
+                selectBackgroundImage() {
+                    // 实现逻辑
+                    that = this;
+                    pywebview.api.selectBackgroundUrl().then(result => {
+                        that.background_url = result;
+                    });
+                },
 
-                // <!-- 选择个性签名文件 -->
+                // 选择昵称文件
+                selectNicknameFile() {
+                    // 实现逻辑
+                    pywebview.api.selectNicknames().then(result => {
+                        this.nicknameData = result['text'];
+                        this.nicknameURL = result['file_path'];
+                    });
 
-                // <!-- 检测用户 cookies是否存在 -->
+                },
 
-                // <!-- 加入任务队列 -->
+                // 选择个性签名文件
+                selectSignatureFile() {
+                    // 实现逻辑
+                    pywebview.api.selectNicknames().then(result => {
+                        this.signatureData = result['text'];
+                        this.signatureURL = result['file_path'];
+                    });
+                },
+                // 分配任务
+                assignTask() {
+                    // 确保所有需要设置的变量都已完成
+                    if (!this.nicknameData || !this.signatureData || !this.avatar_url || !this.background_url) {
+                        alert("请确保所有变量都已设置");
+                        return;
+                    }
 
-                // <!-- 检查格式是否错误 -->
+                    // 分割text
+                    const nicknameList = this.nicknameData.split('\n');
+                    const signatureList = this.signatureData.split('\n');
+
+                    // 检查用户数量与数据数量是否匹配
+                    if (this.userList.length !== nicknameList.length || this.userList.length !== signatureList.length) {
+                        alert("用户数量与昵称或签名数量不匹配");
+                        return;
+                    }
+
+
+
+                    // 分配text内容给每个用户
+                    this.userList.forEach((user, index) => {
+                        user.nickname = nicknameList[index];
+                        user.signature = signatureList[index];
+                        user.avatar_url = this.avatar_url;
+                        user.background_url = this.background_url;
+                        user.task_assigned = true;
+                        console.log("检查用户是否已经分配任务");
+                        console.log(user)
+                        
+                    });
 
             },
-            mounted(){
+                
+                syncUsers() {
+                    // 筛选出状态为未同步的用户并调用addUserToTask函数进行任务分配
+                    const unsyncedUsers = this.userList.filter(user => user.status === 2);
+                    unsyncedUsers.forEach(user => {
+                        console.log(user)
+                        this.addUserToTask(user.id, "login");
 
-            }
-        })
+                    });
+                    this.userList = this.userList.filter(user => user.status !== 2);
+                },
+                
+                
+                modifyUserInfo(userId, nickname, signature, avatarUrl, backgroundUrl) {
+                    // 调用API接口更新用户信息
+                    const userInfo = {
+                        id: userId,
+                        nickname: nickname,
+                        signature: signature,
+                        avatar_url: avatarUrl,
+                        background_url: backgroundUrl
+                    };
 
-    </script>
-    
+                    pywebview.api.modifyUserInfo(userInfo).then(result => {
+                        console.log(`用户 ${userId} 的信息已成功更新:`, result);
+                    }).catch(error => {
+                        console.error(`更新用户 ${userId} 信息时发生错误:`, error);
+                    });
+                }
+                ,
+                addUserToTask(userId,TaskType) {
+                    var Task = {
+                        "userid": userId,
+                        "status": 3,
+                        "args": "",
+                        "notes": "addUserToTask函数测试"
+                    }
+                    
+                    //TODO 这里需要写
+                    if (TaskType=="login"){
+                        // 同步
+                        Task.task_type = "login"
+                        
+                    }else if (TaskType=="modify_info"){
+                        // 修改信息
+                        Task.task_type = "modify_info"
+                    }
+                    pywebview.api.insertTask(Task).then(result => {
+                        console.log("任务插入结果:", result);
+                    }).catch(error => {
+                        console.error("插入任务时发生错误:", error);
+                    });
+                },
+                startTask() {
+                    // 遍历用户列表，检查任务是否已分配
+                    this.userList.forEach(user => {
+                    if (user.task_assigned) {
+                        this.modifyUserInfo(user.id, user.nickname, user.signature, user.avatar_url, user.background_url);
+                        this.addUserToTask(user.id, "modify_info");
+                    } else {
+                        console.log(`用户 ${user.username} 的任务未经分配`);
+                    }
+                    });
+                },
+                
+            
+            
+            
+            
+            },
+            mounted() {
+                    // 完成左侧用户数据渲染与显示
+                    this.queryUserList();
+                }
+        });
+
+        </script>
+
 
 </body>
+
 </html>
